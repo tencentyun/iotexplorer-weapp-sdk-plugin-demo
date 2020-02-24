@@ -1,0 +1,34 @@
+<button bindtap="startSearch">开始搜索蓝牙</button>
+
+<view wx:if="{{searching}}">
+  搜索中...
+</view>
+
+<view wx:for="{{devices}}">
+  {{item.name}}
+  <button bindtap="connect" data-item="{{item}}">连接</button>
+</view>
+
+<view wx:if="{{connectDeviceInfo}}">
+  <view wx:if="{{connectDeviceInfo.isConnect}}">当前已连接</view>
+  <view wx:else>设备已断开，
+    <view bindtap="reconnect">重连</view>
+  </view>
+
+  <view>
+    设备名称: {{connectDeviceInfo.name}}
+  </view>
+
+  <view>
+    explorer设备id: {{connectDeviceInfo.explorerDeviceId}}
+  </view>
+
+  <view>
+    收到温度：{{connectDeviceInfo.temperature}}
+  </view>
+  <view>
+    上报温度：{{connectDeviceInfo.timestamp}}
+  </view>
+
+  <button bindtap="doConnectCurrentDevice">定向搜索并连接该设备</button>
+</view>

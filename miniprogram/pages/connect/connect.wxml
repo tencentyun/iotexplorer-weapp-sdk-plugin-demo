@@ -1,0 +1,24 @@
+<view>
+  {{connectInfo.msg}}
+  <block wx:if="{{connectInfo.status === 'disconnected'}}">
+    ，
+    <view style="display: inline" bindtap="connectDevice">点击重试</view>
+  </block>
+</view>
+
+<view>
+  收到温度：{{temperature}}
+</view>
+<view>
+  上报温度：{{timestamp}}
+</view>
+<view>
+  是否上报：{{dataReported ? '是' : '否'}}
+</view>
+
+<button bindtap="pullHistory">拉取设备历史数据</button>
+
+<view wx:for="{{historyData}}" style="border-bottom: 1px solid #e5e5e5;">
+  <view>Value: {{item.Value}}</view>
+  <view>Time: {{item.Time}}</view>
+</view>

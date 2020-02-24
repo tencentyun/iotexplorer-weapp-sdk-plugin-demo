@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/connect/connect"
+  ],
+  "plugins": {
+    "iotexplorer-weapp-sdk-plugin": {
+      "version": "dev",
+      "provider": "wxb711dd9e4296e7f6"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
+}
