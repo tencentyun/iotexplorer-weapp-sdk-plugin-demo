@@ -43,17 +43,12 @@ Page({
     connectInfo: {},
     historyData: [],
   },
-  onLoad: function ({ deviceId }) {
-    console.log('deviceId', deviceId);
-    const [productId, deviceName] = deviceId.split('/');
-    this.deviceName = deviceName;
-    this.productId = productId;
+  onLoad: function ({ explorerDeviceId }) {
+    this.explorerDeviceId = explorerDeviceId;
     this.connectDevice();
   },
   async connectDevice() {
     try {
-      const { deviceName } = this;
-
       this.setData({
         connectInfo: {
           status: 'connecting',
@@ -62,16 +57,11 @@ Page({
       });
 
       await blueToothAdapter.init();
-      const device = await blueToothAdapter.searchDevice({ deviceName });
+      const device = await blueToothAdapter.searchDevice({ explorerDeviceId: this.explorerDeviceId });
 
       if (device) {
         if (!this.deviceAdapter) {
-          const deviceAdapter = this.deviceAdapter = await blueToothAdapter.connectDevice({
-            deviceId: device.deviceId,
-            serviceId: device.supportedServiceId,
-            deviceName,
-            name: device.name,
-          });
+          const deviceAdapter = this.deviceAdapter = await blueToothAdapter.connectDevice(device);
 
           deviceAdapter
             .on('message', this.onDeviceMessage)
@@ -106,6 +96,7 @@ Page({
   },
 
   onDisconnect() {
+    this.deviceAdapter = null;
     this.setData({
       connectInfo: {
         status: 'disconnected',

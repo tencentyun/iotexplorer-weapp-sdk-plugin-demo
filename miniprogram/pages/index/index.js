@@ -114,18 +114,11 @@ Page({
       this.setData({ searching: false });
       const { item } = e.currentTarget.dataset;
 
-      const { deviceId, supportedServiceId, mac, name } = item;
-
       wx.showLoading({
         title: '连接中',
       });
 
-      const deviceAdapter = this.deviceAdapter = await blueToothAdapter.connectDevice({
-        name,
-        deviceId,
-        serviceId: supportedServiceId,
-        deviceName: mac,
-      });
+      const deviceAdapter = this.deviceAdapter = await blueToothAdapter.connectDevice(item);
 
       deviceAdapter
         .on('message', this.onDeviceMessage)
@@ -140,18 +133,16 @@ Page({
         connectDeviceInfo: {
           explorerDeviceId: deviceAdapter.explorerDeviceId,
           isConnect: true,
-          name,
+          name: item.name,
         },
       });
     } catch (err) {
-      wx.showToast({
-        title: getErrorMsg(err),
-      });
+      this.showError(err);
     }
   },
   doConnectCurrentDevice() {
     wx.navigateTo({
-      url: `/pages/connect/connect?deviceId=${this.data.connectDeviceInfo.explorerDeviceId}`
+      url: `/pages/connect/connect?explorerDeviceId=${this.data.connectDeviceInfo.explorerDeviceId}`
     });
   }
 });
