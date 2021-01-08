@@ -19,9 +19,9 @@ Page({
     wx.navigateTo({ url: `plugin://iotexplorer-weapp-sdk-plugin/trtcCall?accessToken=${accessToken}&type=${type}&deviceId=${this.data.deviceId}`});
   },
   onVideoBtnClick: function () {
-    this.redirectCallPage(callTypeMap['video'])
+    this.redirectCallPage('video')
   },
   onAudioBtnClick: function () {
-    this.redirectCallPage(callTypeMap['audio'])
+    this.redirectCallPage('audio')
   }
 });
