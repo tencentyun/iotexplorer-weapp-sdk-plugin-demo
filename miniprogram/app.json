@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/connect/connect"
+    "pages/connect/connect",
+    "pages/trtcCall/trtcCall"
   ],
   "plugins": {
     "iotexplorer-weapp-sdk-plugin": {
